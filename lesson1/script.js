@@ -1,4 +1,3 @@
-//с заданием 2 пока не разобралась,но в процессе.
 const goods = [
 	{ title:"Shirt", price:"200" },
 	{ title:"Socks", price:"100" },
