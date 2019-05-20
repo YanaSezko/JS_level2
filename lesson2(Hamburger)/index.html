@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+	<!--
+Некая сеть фастфудов предлагает несколько видов гамбургеров:
+
+маленький (50 тугриков, 20 калорий)
+большой (100 тугриков, 40 калорий)
+
+Гамбургер может быть с одним из нескольких видов начинок (обязательно):
+
+сыром (+ 10 тугриков, + 20 калорий)
+салатом (+ 20 тугриков, + 5 калорий)
+картофелем (+ 15 тугриков, + 10 калорий)
+лук (+ 15 тугриков, 0 калорий)
+полить кетчупом (+ 20 тугриков, + 5 калорий). 
+
+Напиши программу, расчиытвающую стоимость и калорийность гамбургера.
+-->
+
+	<form name="#" action="#" id="form">
+		<fieldset>
+			<legend>Создать гамбургер</legend>
+			<div class="row variant">
+				<p>Выбрать размер</p>
+				<div class="radio-variant">
+					<input type="radio" name="size" id="small" value="small" checked />
+					<label for="small">Маленький
+						<span class="radio"></span>
+					</label>
+				</div>
+				<div class="radio-variant">
+					<input type="radio" name="size" id="large" value="large" />
+					<label for="large">Большой
+						<span class="radio"></span>
+					</label>
+				</div>
+			</div>
+			<div class="row additions">
+				<p>Добавить ингредиенты</p>
+				<div class="checkbox-variant">
+					<input type="checkbox" name="add" id="cheese" value="cheese" />
+					<label for="cheese">С сыром
+						<span class="box"></span>
+					</label>
+				</div>
+				<div class="checkbox-variant">
+					<input type="checkbox" name="add" id="salad" value="salad" />
+					<label for="salad">С салатом
+						<span class="box"></span>
+					</label>
+				</div>
+				<div class="checkbox-variant">
+					<input type="checkbox" name="add" id="potato" value="potato" />
+					<label for="potato">С картофелем
+						<span class="box"></span>
+					</label>
+				</div>
+				<div class="checkbox-variant">
+					<input type="checkbox" name="add" id="onion" value="onion" />
+					<label for="onion">С приправой
+						<span class="box"></span>
+					</label>
+				</div>
+				<div class="checkbox-variant">
+					<input type="checkbox" name="add" id="mayonnaise" value="mayonnaise" />
+					<label for="mayonnaise">С майонезом
+						<span class="box"></span>
+					</label>
+				</div>
+			</div>
+			<div class="submit">
+				<input class="btn" type="submit" value="Сделать заказ" />
+			</div>
+		</fieldset>
+		<br />
+		<div id="result">
+			<div><b>Стоимость:</b> <span id="price">0</span> руб</div>
+			<div><b>Калорийность:</b> <span id="calories">0</span> ккал</div>
+		</div>
+	</form>
+	<script src="script.js"></script>
+</body>
+
+</html>
