@@ -11,7 +11,7 @@ function getXhr() {
 Vue.component('goods-list', {
 	props: ['goods'],
 	template: `<div class="goods-list grid">
-      <goods-item v-for="good in goods" :good="good"></goods-item>
+      <goods-item v-for="good in goods" v-bind:key="good.id" :good="good"></goods-item>
     </div>`
 });
 
@@ -25,26 +25,49 @@ Vue.component('goods-item', {
 });
 //компонент корзина
 Vue.component('cart-list', {
-	props: [],
-	template: `<div class="cart-list" v-if="isVisibleCart">
-	            <button class="btn" @click="showCart">Корзина</button>
-				<div class="close" @click="hideCart">X</div>
-				<div class="cart-item">
-					<div class="cart-info" v-for="good in cartGoods">
-						<h3>{{ good.product_name }}</h3>
-						<p>{{ good.price }}</p>
-					</div>
-				</div>
-			</div>`
+	methods: {
+		onClose() {
+			this.$emit('close')			
+		}
+	},
+	template: `<div class="cart-list">
+	            <div class="close" @click="onClose">X</div>
+			   </div>`
 });
 //компонент поиск			  
 Vue.component('search', {
-	props: [],
-	template: `<form class="search" @submit.prevent="filterGoods">
+	data: ()=>({
+		searchLine:""
+	}),
+	methods: {
+		onSubmit(){
+			this.$emit("submit", this.searchLine)
+		}
+	},
+	template: `<form class="search" @submit.prevent="onSubmit">
 				<input type="text" v-model.trim="searchLine" placeholder="Введите текст">
 				<button type="submit" class="search-btn"></button>
 			</form>`
 });
+
+
+//компонент ошибка
+Vue.component('error-message', {
+	props: ["message"],
+	methods: {
+		setCloseTimeout() {
+			setTimeout(() => {
+				this.$emit("close")
+			}, 3000)
+		}
+	},
+	mounted() {
+		this.setCloseTimeout()
+	},
+	template: `<div class="error-message">{{ message }}</div>`
+});
+
+
 
 const app = new Vue({
 	el: '#app',
@@ -54,7 +77,7 @@ const app = new Vue({
 		cartGoods: [],
 		searchLine: '',
 		isVisibleCart: false,
-
+		isVisibleError: false,
 	},
 	computed: {
 		noData() {
@@ -80,8 +103,8 @@ const app = new Vue({
 			})
 		},
 
-		filterGoods() {
-			const regexp = new RegExp(this.searchLine, 'i');
+		filterGoods(searchLine) {
+			const regexp = new RegExp(searchLine, 'i');
 			this.filteredGoods = this.goods.filter(good => regexp.test(good.product_name));
 
 		},
@@ -92,26 +115,24 @@ const app = new Vue({
 			this.isVisibleCart = false
 
 		},
-		viewCart() {
-			switch (this.isVisibleCart) {
-				case (false):
-					{
-						this.isVisibleCart = true;
-						break;
-					}
-				case (true):
-					{
-						this.isVisibleCart = false;
-						break;
-					}
-			}
-		}
+		
+		showError() {
+			this.isVisibleError = true
+		},
+		hideError() {
+			this.isVisibleEror = false
 
+		},
+		
+	
 	},
 	mounted() {
 		this.makeGETRequest(`${API_URL}/catalogData.json`).then((goods) => {
 			this.goods = goods;
 			this.filteredGoods = goods;
+		}).catch((err) => {
+			this.message = err;
+			this.showError();
 		})
 	}
 });
