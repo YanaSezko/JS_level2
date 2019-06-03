@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body class="container">
+	<div id="app">
+	<error-message :message="message" @close="hideError" v-if="isVisibleError"></error-message>
+		<header>
+			<div class="logo">For you</div>
+			<nav>
+				<ul>
+					<li>Главная</li>
+					<li>Каталог</li>
+					<li>Контакты</li>
+				</ul>
+			</nav>
+			<search @submit="filterGoods"></search>
+			<button class="btn" @click="showCart">Корзина</button>
+			<cart-list  v-if="isVisibleCart" @close="hideCart"></cart-list>
+		</header>
+		<main>
+		<p v-if="noData" class="goods-null">Нет данных</p>
+			<goods-list :goods="filteredGoods"></goods-list>
+		</main>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="script.js"></script>
+</body>
+
+</html>
