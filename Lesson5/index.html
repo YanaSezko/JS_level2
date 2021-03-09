@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body class="container">
+	<div id="app">
+		<header>
+			<div class="logo">For you</div>
+			<nav>
+				<ul>
+					<li>Главная</li>
+					<li>Каталог</li>
+					<li>Контакты</li>
+				</ul>
+			</nav>
+			<div class="search">
+				<input type="search" v-on:keyup.enter="filterGoods()" v-model="searchLine" placeholder="Введите текст">
+				<button v-on:click="filterGoods()" class="search-btn"></button>
+			</div>
+
+
+			<button class="btn">Корзина</button>
+
+
+
+
+		</header>
+		<main>
+			<!--<article>
+			<h3>Пример текста для задания 1-2</h3>
+			<p>'Lorem ipsum dolor sit amet', c"onsectetur adipisicing elit. Repellendus eligendi 'porro optio numquam', ad obcaecati? Quae quis ipsa sunt est libero obcaecati accusantium, quisquam sapiente id nihil nostrum eaque, repellat quibusdam quia hic ducimus ad laudantium a ipsum labore commodi ratione odio fugit. Delectus explicabo minus ducimus corrupti, repellendus ut!</p>
+			<p>Вставте этот текст в поле, что находится ниже</p>
+
+		</article>
+		<aside>
+			<h3>Исправленный текст</h3>
+			<textarea class="regexp" rows="4" id="regtext"></textarea>
+		</aside>
+		<a href="#" class="btn btn-write">Напишите нам!</a>-->
+			<div class="goods-list grid">
+				<div class="goods-item" v-for="good in filteredGoods">
+					<h3>{{ good.product_name }}</h3>
+					<p>{{ good.price }}</p>
+					<button class="add-to-cart">Добавить в корзину</button>
+				</div>
+			</div>
+			<div v-if="filteredGoods.length == 0">
+				<h3 class="goods-null">Нет данных</h3>
+			</div>
+		</main>
+		<!--<section class="form form-write-us">
+		<h3 class="visually-hidden">Напишите нам</h3>
+		<form action="#" method="post">
+			<div class="form-top">
+				<p class="write-us-inp">
+					<label for="name">Ваше имя:</label>
+					<input class="users-name" type="text" name="users-name" id="name" pattern="[A-Za-zА-Яа-яЁё]{3,}" placeholder="Представтесь, пожалуйста" required>
+				</p>
+				<p class="write-us-inp">
+					<label for="phone">Ваш телефон:</label>
+					<input class="users-phone" type="text" name="users-phone" id="phone" pattern="[\+]\d{1}[\(]\d{3}[\)]\d{3}[\-]\d{4}" placeholder="+7(000)000-0000" required>
+				</p>
+				<p class="write-us-inp">
+					<label for="email">Ваш e-mail:</label>
+					<input class="users-email" type="email" name="email" id="email" placeholder="Для отправки ответа" required>
+				</p>
+				<p>
+					<label class="textarea-topic" for="msg">Текст письма:</label>
+					<textarea class="users-massage" rows="5" name="msg" id="msg" placeholder="В свободной форме" required></textarea>
+				</p>
+			</div>
+			<div class="form-bottom">
+				<button class="btn btn-send" type="submit" id="send">Отправить</button>
+			</div>
+			<button class="form-close" type="button">Закрыть</button>
+		</form>
+	</section>-->
+		<div class="cart-list" v-bind:class="{ active: isVisibleCart }">
+			<h2>Корзина</h2>
+			<div class="cart-item">
+				<div class="cart-info" v-for="good in cartGoods">
+					<h3>{{ good.product_name }}</h3>
+					<p>{{ good.price }}</p>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="script.js"></script>
+</body>
+
+</html>
